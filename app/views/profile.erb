@@ -1,0 +1,11 @@
+<div class="container">
+<h1><%= "#{@email}'s Profile Page" %></h1>
+</div>
+<div class="container">
+<% if @past_urls %>
+<p><%= "#{@email}'s Old Links: "%></p>
+<% @past_urls.each do |url| %>
+<li><%= "#{url.full_url} | http://localhost:9393/#{url.short_url} | #{url.counter}" %></li>
+<% end %>
+<% end %>
+</div>

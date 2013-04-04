@@ -1,0 +1,30 @@
+<!-- welcome logged_in_user -->
+<div class="container">
+  <p><%= "Welcome #{@email}"%></p>
+  <p><a href="/logout">Logout</a></p>
+</div>
+<div class="container">
+  <h1>Bitly Clone</h1>
+
+  <% if @error_message %>
+  <p><%= "ERROR: " + @error_message %></p>
+  <% end %>
+
+  <form name="shortener" method="post" action="/urls">
+    Long URL: <input type="text" name="long_url">
+    <input type="submit">
+  </form>
+  <% if @url && @url.valid? %>
+  <p><%= "Short URL: http://localhost:9393/#{@shortened_url}" %></p>
+  <p><%= "Long URL: #{@long_url}" %></p>
+  <% end %>
+</div>
+
+<div class="container">
+<% if @past_urls %>
+<p><%= "Your Old Links: "%></p>
+<% @past_urls.each do |url| %>
+<li><%= "#{url.full_url} | http://localhost:9393/#{url.short_url} | #{url.counter}" %></li>
+<% end %>
+<% end %>
+</div>

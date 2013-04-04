@@ -5,7 +5,8 @@ post '/login' do
   user = User.authenticate(@email,@encrypted)
   if user.present?
     login! user
-    redirect '/secret'
+    @past_urls = Url.where("user_id = ?", user.id)
+    erb :logged_in
 
   else
     @message2 = "Invalid login"
@@ -38,5 +39,4 @@ helpers do
     return nil unless logged_in?
     @current_user ||= User.find(session[:current_user_id])
   end
-
 end

@@ -2,12 +2,13 @@ require 'debugger'
 require 'digest/sha1'
 
 get '/' do
-  # Look in app/views/index.erb
-  erb :index
+  if session[:current_user_id]
+    user_id = session[:current_user_id]
+    @email = User.find_by_id(user_id).email
+    @past_urls = Url.where("user_id = ?", user_id)
+    erb :logged_in
+  else
+    erb :index
+  end
 end
 
-get '/secret' do
-  return "NOT AUTHORIZED" unless logged_in?
-
-  erb :secret
-end
